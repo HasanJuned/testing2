@@ -28,6 +28,7 @@ class _MyHomePageState extends State<MyHomePage> {
   TextEditingController numberController = TextEditingController();
 
   List list = [];
+  bool inProgress = false;
 
   @override
   Widget build(BuildContext context) {
