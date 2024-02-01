@@ -1,20 +1,124 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:testing2/splash_screen.dart';
+import 'package:get/get.dart';
+import 'package:testing2/group_join.dart';
 
+import 'model.dart';
+import 'network_utils.dart';
 
 void main() {
-  runApp(TechStore());
+  runApp(MyApp());
 }
 
-class TechStore extends StatelessWidget {
-  const TechStore({super.key});
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return const GetMaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: HomePage(),
+    );
+  }
+}
+
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  Model model = Model();
+  GroupJoin groupJoin = GroupJoin();
+  bool inProgress = false;
+
+  Future<void> completedNewTasks() async {
+    inProgress = true;
+    setState(() {});
+    final response = await NetworkUtils().getMethod(
+        'http://10.0.2.2:2006/api/teacher/availableCourseAndTeacher');
+
+    if (response != null) {
+      model = Model.fromJson(response);
+    } else {
+      if (mounted) {
+        print('unable');
+      }
+    }
+    inProgress = false;
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    completedNewTasks();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Available Course & Teacher'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Center(
+          child: ListView.separated(
+              itemCount: model.data?.length ?? 0,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  tileColor: Colors.grey.shade300,
+                  title: Text('Batch: ${model.data?[index].batch ?? ''}'),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Text('Section: ${model.data?[index].section ?? ''}'),
+                      const SizedBox(
+                        height: 4,
+                      ),
+                      Text('Subject: ${model.data?[index].courseTitle ?? ''}'),
+                      const SizedBox(
+                        height: 4,
+                      ),
+                      Text('Teacher: ${model.data?[index].email ?? ''}'),
+                      const SizedBox(
+                        height: 4,
+                      ),
+                    ],
+                  ),
+                  trailing: ElevatedButton(
+                      onPressed: () async {
+                        final result = await NetworkUtils().postMethod(
+                          'http://10.0.2.2:2006/api/teacher/createGroup',
+                          body: {
+                            "batch": "57",
+                            "section": "A",
+                            "courseCode": "eee-4111",
+                            "courseTitle": "OOP",
+                            "member": {
+                              "name": "1234560",
+                              "batch": "cse",
+                              "department": "cse",
+                              "section": "a"
+                            }
+                          },
+                        );
+                      },
+                      child: Text('Join')),
+                );
+              },
+              separatorBuilder: (context, index) {
+                return Divider(
+                  thickness: 6,
+                  height: 12,
+                  color: Colors.indigo.shade100,
+                );
+              }),
+        ),
+      ),
     );
   }
 }
