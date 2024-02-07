@@ -39,7 +39,7 @@ class NetworkUtils {
       final http.Response response = await http.post(Uri.parse(url),
           headers: {
             'Content-type': 'application/json',
-            'token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDY4NTk4NjcsImRhdGEiOiJjc2VfMjEyMjAyMDAzMEBsdXMuYWMuYmQiLCJpYXQiOjE3MDY3NzM0Njd9.NpM5K-GePJr2ZqDfbPKJ0-BxghGfOfuKusMaPQmIYIg'
+            'token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDY4NjI0NDEsImRhdGEiOiJjc2VfMjEyMjAyMDAzMDExMTExMTFAbHVzLmFjLmJkIiwiaWF0IjoxNzA2Nzc2MDQxfQ.CnM2jUx8vUdajkmxOCwXfOAZqEtI7nNYRgRcfqhcybc'
           },
           body: jsonEncode(body));
 

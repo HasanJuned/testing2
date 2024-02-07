@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:testing2/group_join.dart';
 
 import 'model.dart';
@@ -14,7 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      home: ImageUploader(),
     );
   }
 }
@@ -122,3 +125,68 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
+class ImageUploader extends StatefulWidget {
+  const ImageUploader({super.key});
+
+  @override
+  State<ImageUploader> createState() => _ImageUploaderState();
+}
+
+class _ImageUploaderState extends State<ImageUploader> {
+
+  XFile? pickedImage;
+  String? imageUrl;
+  String? fileName;
+
+
+  /// Image pick from gallery
+  Future<void> imagePickerFunction() async {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('Pick Image from'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ListTile(
+                  title: const Text('Gallery'),
+                  leading: const Icon(Icons.image),
+                  onTap: () async {
+                    pickedImage = await ImagePicker()
+                        .pickImage(source: ImageSource.camera);
+                    log(pickedImage!.path);
+
+                    if (pickedImage == null) {
+                      return;
+                    }
+
+                    fileName = DateTime.now().millisecondsSinceEpoch.toString();
+                  },
+                ),
+              ],
+            ),
+          );
+        });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Image Uploader"),
+      ),
+      
+      body: Center(
+        child: ElevatedButton(onPressed: (){
+          imagePickerFunction();
+
+
+
+        }, child: Text('Upload')),
+      ),
+    );
+  }
+}
+
