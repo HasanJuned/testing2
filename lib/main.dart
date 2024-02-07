@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: ImageUploader(),
+      home: HomePage(),
     );
   }
 }
@@ -86,7 +86,7 @@ class _HomePageState extends State<HomePage> {
                       const SizedBox(
                         height: 4,
                       ),
-                      Text('Teacher: ${model.data?[index].email ?? ''}'),
+                      Text('Teacher: ${model.data?[index].member?.length ?? ''}'),
                       const SizedBox(
                         height: 4,
                       ),
@@ -95,14 +95,14 @@ class _HomePageState extends State<HomePage> {
                   trailing: ElevatedButton(
                       onPressed: () async {
                         final result = await NetworkUtils().postMethod(
-                          'http://10.0.2.2:2006/api/teacher/createGroup',
+                          'http://10.0.2.2:2006/api/teacher/createGroup/${model.data?[index].sId}',
                           body: {
                             "batch": "57",
                             "section": "A",
                             "courseCode": "eee-4111",
                             "courseTitle": "OOP",
                             "member": {
-                              "name": "1234560",
+                              "name": "123456x0",
                               "batch": "cse",
                               "department": "cse",
                               "section": "a"

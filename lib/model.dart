@@ -30,7 +30,7 @@ class Data {
   String? section;
   String? courseCode;
   String? courseTitle;
-  String? email;
+  List<Member>? member;
   String? createdDate;
 
   Data(
@@ -39,7 +39,7 @@ class Data {
         this.section,
         this.courseCode,
         this.courseTitle,
-        this.email,
+        this.member,
         this.createdDate});
 
   Data.fromJson(Map<String, dynamic> json) {
@@ -48,7 +48,12 @@ class Data {
     section = json['section'];
     courseCode = json['courseCode'];
     courseTitle = json['courseTitle'];
-    email = json['email'];
+    if (json['member'] != null) {
+      member = <Member>[];
+      json['member'].forEach((v) {
+        member!.add(new Member.fromJson(v));
+      });
+    }
     createdDate = json['createdDate'];
   }
 
@@ -59,8 +64,47 @@ class Data {
     data['section'] = this.section;
     data['courseCode'] = this.courseCode;
     data['courseTitle'] = this.courseTitle;
-    data['email'] = this.email;
+    if (this.member != null) {
+      data['member'] = this.member!.map((v) => v.toJson()).toList();
+    }
     data['createdDate'] = this.createdDate;
+    return data;
+  }
+}
+
+class Member {
+  String? name;
+  String? batch;
+  String? department;
+  String? section;
+  String? sId;
+  String? timestamp;
+
+  Member(
+      {this.name,
+        this.batch,
+        this.department,
+        this.section,
+        this.sId,
+        this.timestamp});
+
+  Member.fromJson(Map<String, dynamic> json) {
+    name = json['name'];
+    batch = json['batch'];
+    department = json['department'];
+    section = json['section'];
+    sId = json['_id'];
+    timestamp = json['timestamp'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['name'] = this.name;
+    data['batch'] = this.batch;
+    data['department'] = this.department;
+    data['section'] = this.section;
+    data['_id'] = this.sId;
+    data['timestamp'] = this.timestamp;
     return data;
   }
 }
