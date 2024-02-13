@@ -1,192 +1,106 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:testing2/group_join.dart';
 
-import 'model.dart';
-import 'network_utils.dart';
 
-void main() {
-  runApp(MyApp());
+/// navigator -> push, pop, pushAndRemoveUntil
+
+void main(){  // code er entry point
+  runApp(MyApp()); // application entry point
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return const GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: HomePage(),
+    return MaterialApp(
+      home: HomeScreen(),
     );
   }
 }
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  Model model = Model();
-  GroupJoin groupJoin = GroupJoin();
-  bool inProgress = false;
-
-  Future<void> completedNewTasks() async {
-    inProgress = true;
-    setState(() {});
-    final response = await NetworkUtils().getMethod(
-        'http://10.0.2.2:2006/api/teacher/availableCourseAndTeacher');
-
-    if (response != null) {
-      model = Model.fromJson(response);
-    } else {
-      if (mounted) {
-        print('unable');
-      }
-    }
-    inProgress = false;
-    setState(() {});
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    completedNewTasks();
-  }
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Available Course & Teacher'),
+        title: Text('1st Screen'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Center(
-          child: ListView.separated(
-              itemCount: model.data?.length ?? 0,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  tileColor: Colors.grey.shade300,
-                  title: Text('Batch: ${model.data?[index].batch ?? ''}'),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      Text('Section: ${model.data?[index].section ?? ''}'),
-                      const SizedBox(
-                        height: 4,
-                      ),
-                      Text('Subject: ${model.data?[index].courseTitle ?? ''}'),
-                      const SizedBox(
-                        height: 4,
-                      ),
-                      Text('Teacher: ${model.data?[index].member?.length ?? ''}'),
-                      const SizedBox(
-                        height: 4,
-                      ),
-                    ],
-                  ),
-                  trailing: ElevatedButton(
-                      onPressed: () async {
-                        final result = await NetworkUtils().postMethod(
-                          'http://10.0.2.2:2006/api/teacher/createGroup/${model.data?[index].sId}',
-                          body: {
-                            "batch": "57",
-                            "section": "A",
-                            "courseCode": "eee-4111",
-                            "courseTitle": "OOP",
-                            "member": {
-                              "name": "123456x0",
-                              "batch": "cse",
-                              "department": "cse",
-                              "section": "a"
-                            }
-                          },
-                        );
-                      },
-                      child: Text('Join')),
-                );
-              },
-              separatorBuilder: (context, index) {
-                return Divider(
-                  thickness: 6,
-                  height: 12,
-                  color: Colors.indigo.shade100,
-                );
-              }),
+      body: Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(onPressed: (){
+              /// ek screen teke onno screen ey niye jawa
+              Navigator.push(context, MaterialPageRoute(builder: (context)=> SecondScreen()));
+
+            }, child: Text('goto 2nd screen'))
+          ],
+        ),
+      )
+    );
+  }
+}
+
+class SecondScreen extends StatelessWidget {
+  const SecondScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('2nd Screen'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(onPressed: (){
+
+              // jekan teke present screen call hoise, shekane niye jabe
+              Navigator.pop(context); ///  screen teke back kora
+
+            }, child: Text('Back 1st screen')),
+
+            ElevatedButton(onPressed: (){
+
+              Navigator.push(context, MaterialPageRoute(builder: (context)=> ThirdScreen()));
+
+            }, child: Text('goto 3rd screen')),
+          ],
         ),
       ),
     );
   }
 }
 
-class ImageUploader extends StatefulWidget {
-  const ImageUploader({super.key});
-
-  @override
-  State<ImageUploader> createState() => _ImageUploaderState();
-}
-
-class _ImageUploaderState extends State<ImageUploader> {
-
-  XFile? pickedImage;
-  String? imageUrl;
-  String? fileName;
-
-
-  /// Image pick from gallery
-  Future<void> imagePickerFunction() async {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: const Text('Pick Image from'),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                ListTile(
-                  title: const Text('Gallery'),
-                  leading: const Icon(Icons.image),
-                  onTap: () async {
-                    pickedImage = await ImagePicker()
-                        .pickImage(source: ImageSource.camera);
-                    log(pickedImage!.path);
-
-                    if (pickedImage == null) {
-                      return;
-                    }
-
-                    fileName = DateTime.now().millisecondsSinceEpoch.toString();
-                  },
-                ),
-              ],
-            ),
-          );
-        });
-  }
+class ThirdScreen extends StatelessWidget {
+  const ThirdScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Image Uploader"),
+        title: Text('3rd screen'),
       ),
-      
+
       body: Center(
-        child: ElevatedButton(onPressed: (){
-          imagePickerFunction();
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(onPressed: (){
 
+              // purber sob screen memory / stack teke remove kore memory / stack free kore dia and apni jei screen ey jabar kota bolben shei screen ey niye jave
+              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> HomeScreen()), (route) => false);
 
-
-        }, child: Text('Upload')),
+            }, child: Text('Goto 1st Screen'))
+          ],
+        ),
       ),
     );
   }
 }
+
+
 
