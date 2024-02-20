@@ -41,16 +41,26 @@ class _WeatherPageState extends State<WeatherPage> {
 
   Future<void> fetchWeatherData() async {
     try {
-      final url =
-          'https://api.openweathermap.org/data/2.5/weather?q=Boise&appid=0dadc0ec41869d72cab605ebf70d5c96';
 
-      final response = await get(Uri.parse(url));
-      if (response.statusCode == 200) {
+      /// step 0
+      final url = 'https://api.openweathermap.org/data/2.5/weather?q=Boise&appid=0dadc0ec41869d72cab605ebf70d5c96';
+
+      /// 1st uri
+      final response = await get(Uri.parse(url)); /// get request y/n
+
+
+      /// 2nd response anyhting from server y == 200 / n == else
+
+      if (response.statusCode == 200) { // yes / ok /success
+
         final jsonData = json.decode(response.body);
-        setState(() {
-          weatherData = WeatherData.fromJson(jsonData);
-          isLoading = false;
-        });
+
+        weatherData = WeatherData.fromJson(jsonData);
+        print(response.body);
+        isLoading = false;
+
+        setState(() {});
+
       } else {
         setState(() {
           isError = true;
@@ -86,7 +96,7 @@ class _WeatherPageState extends State<WeatherPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                weatherData!.location,
+               weatherData!.location,
                 style: TextStyle(
                     fontSize: 34,
                     fontFamily: 'Poppins',

@@ -1,5 +1,6 @@
 import 'package:intl/intl.dart';
 
+/// model / pojo class -> helper between application and api
 class WeatherData {
   final String location;
   final String temperature;
@@ -19,13 +20,15 @@ class WeatherData {
     required this.maxTemperature,
   });
 
+  /// link
+
   factory WeatherData.fromJson(Map<String, dynamic> json) {
     final weather = json['weather'][0];
     final iconCode = weather['icon'];
-    final temperature = (json['main']['temp'] - 273.15).toStringAsFixed(1);
+    final temperature = (json['main']['temp'] - 273.15).toStringAsFixed(1); /// 278 - 273 = 5
     final minTemperature = (json['main']['temp_min'] - 273.15).toStringAsFixed(1);
     final maxTemperature = (json['main']['temp_max'] - 273.15).toStringAsFixed(1);
-    final currentTime = DateTime.now();
+    final currentTime = DateTime.now(); /// system teke current 9.29 PM
     final updatedTime = DateFormat('h:mm a').format(currentTime);
     //final updatedTime = '${currentTime.hour.toString().padLeft(2, '0')}:${currentTime.minute.toString().padLeft(2, '0')}';
 
