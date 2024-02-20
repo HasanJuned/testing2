@@ -1,110 +1,43 @@
-class Model {
-  String? status;
-  List<Data>? data;
+import 'package:intl/intl.dart';
 
-  Model({this.status, this.data});
+class WeatherData {
+  final String location;
+  final String temperature;
+  final String weatherDescription;
+  final String weatherImage;
+  final String updatedTime;
+  final String minTemperature;
+  final String maxTemperature;
 
-  Model.fromJson(Map<String, dynamic> json) {
-    status = json['status'];
-    if (json['data'] != null) {
-      data = <Data>[];
-      json['data'].forEach((v) {
-        data!.add(new Data.fromJson(v));
-      });
-    }
-  }
+  WeatherData({
+    required this.location,
+    required this.temperature,
+    required this.weatherDescription,
+    required this.weatherImage,
+    required this.updatedTime,
+    required this.minTemperature,
+    required this.maxTemperature,
+  });
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    if (this.data != null) {
-      data['data'] = this.data!.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
-}
+  factory WeatherData.fromJson(Map<String, dynamic> json) {
+    final weather = json['weather'][0];
+    final iconCode = weather['icon'];
+    final temperature = (json['main']['temp'] - 273.15).toStringAsFixed(1);
+    final minTemperature = (json['main']['temp_min'] - 273.15).toStringAsFixed(1);
+    final maxTemperature = (json['main']['temp_max'] - 273.15).toStringAsFixed(1);
+    final currentTime = DateTime.now();
+    final updatedTime = DateFormat('h:mm a').format(currentTime);
+    //final updatedTime = '${currentTime.hour.toString().padLeft(2, '0')}:${currentTime.minute.toString().padLeft(2, '0')}';
 
-class Data {
-  String? sId;
-  String? batch;
-  String? section;
-  String? courseCode;
-  String? courseTitle;
-  List<Member>? member;
-  String? createdDate;
-
-  Data(
-      {this.sId,
-        this.batch,
-        this.section,
-        this.courseCode,
-        this.courseTitle,
-        this.member,
-        this.createdDate});
-
-  Data.fromJson(Map<String, dynamic> json) {
-    sId = json['_id'];
-    batch = json['batch'];
-    section = json['section'];
-    courseCode = json['courseCode'];
-    courseTitle = json['courseTitle'];
-    if (json['member'] != null) {
-      member = <Member>[];
-      json['member'].forEach((v) {
-        member!.add(new Member.fromJson(v));
-      });
-    }
-    createdDate = json['createdDate'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.sId;
-    data['batch'] = this.batch;
-    data['section'] = this.section;
-    data['courseCode'] = this.courseCode;
-    data['courseTitle'] = this.courseTitle;
-    if (this.member != null) {
-      data['member'] = this.member!.map((v) => v.toJson()).toList();
-    }
-    data['createdDate'] = this.createdDate;
-    return data;
-  }
-}
-
-class Member {
-  String? name;
-  String? batch;
-  String? department;
-  String? section;
-  String? sId;
-  String? timestamp;
-
-  Member(
-      {this.name,
-        this.batch,
-        this.department,
-        this.section,
-        this.sId,
-        this.timestamp});
-
-  Member.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
-    batch = json['batch'];
-    department = json['department'];
-    section = json['section'];
-    sId = json['_id'];
-    timestamp = json['timestamp'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
-    data['batch'] = this.batch;
-    data['department'] = this.department;
-    data['section'] = this.section;
-    data['_id'] = this.sId;
-    data['timestamp'] = this.timestamp;
-    return data;
+    return WeatherData(
+      location: json['name'],
+      temperature: temperature,
+      weatherDescription: weather['main'],
+      minTemperature: minTemperature,
+      maxTemperature: maxTemperature,
+      weatherImage:
+      'https://openweathermap.org/img/w/$iconCode.png',
+      updatedTime: updatedTime,
+    );
   }
 }
