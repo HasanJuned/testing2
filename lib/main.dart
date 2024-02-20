@@ -42,14 +42,10 @@ class _WeatherPageState extends State<WeatherPage> {
   Future<void> fetchWeatherData() async {
     try {
 
-      /// step 0
+      /// api free link
       final url = 'https://api.openweathermap.org/data/2.5/weather?q=Boise&appid=0dadc0ec41869d72cab605ebf70d5c96';
-
-      /// 1st uri
       final response = await get(Uri.parse(url)); /// get request y/n
 
-
-      /// 2nd response anyhting from server y == 200 / n == else
 
       if (response.statusCode == 200) { // yes / ok /success
 
