@@ -7,9 +7,9 @@ import 'auth_urils.dart';
 
 
 class NetworkUtils {
+
   /// Api Get Method
-  Future<dynamic> getMethod(String url,
-      {Map<String, String>? body, VoidCallback? onUnAuthorize}) async {
+  Future<dynamic> getMethod(String url, {Map<String, String>? body, VoidCallback? onUnAuthorize}) async {
     try {
       final http.Response response = await http.get(Uri.parse(url), headers: {
         'Content-type': 'application/json',
@@ -43,13 +43,12 @@ class NetworkUtils {
           },
           body: jsonEncode(body));
 
-      print(response.body);
-      return jsonDecode(response.body);
-
+      // print(response.body);
+      // return jsonDecode(response.body);
 
       if (response.statusCode == 200) {
-        // print(response.body);
-        // return jsonDecode(response.body);
+        print(response.body);
+        return jsonDecode(response.body);
       } else if (response.statusCode == 401) {
         if (onUnAuthorize != null) {
           onUnAuthorize();

@@ -123,7 +123,7 @@ class _WeatherPageState extends State<WeatherPage> {
               ),
               SizedBox(height: 16),
               Text(
-                '${weatherData!.temperature}°C',
+                '${weatherData!.temperature}°C', // null
                 style: TextStyle(
                   fontSize: 48,
                   color: Colors.white,
