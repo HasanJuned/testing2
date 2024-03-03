@@ -59,7 +59,7 @@ class NetworkUtils {
         log('Something went wrong ${response.statusCode}');
       }
     } catch (e) {
-      log('Error $e');
+      log('Error $e');//
     }
   }
 
