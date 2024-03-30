@@ -11,7 +11,6 @@ class BmiCalculator extends StatefulWidget {
 }
 
 class _BmiCalculatorState extends State<BmiCalculator> {
-
   TextEditingController ageController = TextEditingController();
   TextEditingController feetController = TextEditingController();
   TextEditingController inchController = TextEditingController();
@@ -31,8 +30,14 @@ class _BmiCalculatorState extends State<BmiCalculator> {
         title: const Text('BMI Calculator'),
         elevation: 200,
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.replay_outlined)),
-          IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert_rounded)),
+          IconButton(
+            onPressed: () {
+              dispose();
+            },
+            icon: const Icon(Icons.replay_outlined),
+          ),
+          IconButton(
+              onPressed: () {}, icon: const Icon(Icons.more_vert_rounded)),
         ],
       ),
       body: SingleChildScrollView(
@@ -43,8 +48,17 @@ class _BmiCalculatorState extends State<BmiCalculator> {
             children: [
               inputArea(),
               bmiChart(ans),
-              const SizedBox(height: 10,),
-              const Text('Normal Weight :  117.9 - 159.4 lb', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20, letterSpacing: 0.2, color: Colors.redAccent),)
+              const SizedBox(
+                height: 10,
+              ),
+              const Text(
+                'Normal Weight :  117.9 - 159.4 lb',
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 20,
+                    letterSpacing: 0.2,
+                    color: Colors.redAccent),
+              )
             ],
           ),
         ),
@@ -58,15 +72,23 @@ class _BmiCalculatorState extends State<BmiCalculator> {
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            InputDetails(ageController: ageController, labelText: 'Age',),
+            Expanded(
+                child: InputDetails(
+              ageController: ageController,
+              labelText: 'Age',
+            )),
             const SizedBox(
               width: 45,
             ),
-            InputDetails(ageController: feetController, labelText: "'"),
+            Expanded(
+                child: InputDetails(
+                    ageController: feetController, labelText: "Ht (f)")),
             const SizedBox(
               width: 40,
             ),
-            InputDetails(ageController: inchController, labelText: "' '"),
+            Expanded(
+                child: InputDetails(
+                    ageController: inchController, labelText: "Ht (in)")),
             const SizedBox(
               width: 50,
             ),
@@ -74,49 +96,60 @@ class _BmiCalculatorState extends State<BmiCalculator> {
             const SizedBox(
               width: 10,
             ),
-            InkWell(onTap: () {}, child: const Icon(Icons.arrow_drop_down_outlined))
+            InkWell(
+                onTap: () {}, child: const Icon(Icons.arrow_drop_down_outlined))
           ],
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                SizedBox(
-                  height: 100,
-                  child: InkWell(
-                    onTap: () {
-                      changeMaleGenderColor = true;
-                      changeFemaleGenderColor = false;
-                      setState(() {});
-                    },
-                    child: Icon(Icons.male, color: changeMaleGenderColor == true ? Colors.green : null, size: 28,),
-                  ),
-                ),
-                const Text(' | ', style: TextStyle(fontSize: 30),),
-                SizedBox(
-                  height: 100,
-                  child: InkWell(
-                    onTap: () {
-                      changeFemaleGenderColor = true;
-                      changeMaleGenderColor = false;
-                      setState(() {});
-                    },
-                    child: Icon(
-                      Icons.female,
-                      color: changeFemaleGenderColor == true ? Colors.green : null,
-                        size: 28
+            Expanded(
+              child: Row(
+                children: [
+                  SizedBox(
+                    height: 100,
+                    child: InkWell(
+                      onTap: () {
+                        changeMaleGenderColor = true;
+                        changeFemaleGenderColor = false;
+                        setState(() {});
+                      },
+                      child: Icon(
+                        Icons.male,
+                        color:
+                            changeMaleGenderColor == true ? Colors.green : null,
+                        size: 28,
+                      ),
                     ),
                   ),
-                ),
-              ],
+                  const Text(
+                    ' | ',
+                    style: TextStyle(fontSize: 25),
+                  ),
+                  SizedBox(
+                    height: 100,
+                    child: InkWell(
+                      onTap: () {
+                        changeFemaleGenderColor = true;
+                        changeMaleGenderColor = false;
+                        setState(() {});
+                      },
+                      child: Icon(Icons.female,
+                          color: changeFemaleGenderColor == true
+                              ? Colors.green
+                              : null,
+                          size: 28),
+                    ),
+                  ),
+                ],
+              ),
             ),
             const SizedBox(
               width: 15,
             ),
             SizedBox(
               height: 100,
-              width: 100,
+              width: 110,
               child: TextFormField(
                 controller: weightController,
                 decoration: const InputDecoration(
@@ -127,15 +160,12 @@ class _BmiCalculatorState extends State<BmiCalculator> {
             const SizedBox(
               width: 90,
             ),
-            const Text('wt'),
-            const SizedBox(
-              width: 10,
-            ),
+            // const Text('wt  '),
             InkWell(
               onTap: () {
                 bmiCalculation();
               },
-              child: const Icon(Icons.arrow_drop_down_outlined),
+              child: const Icon(Icons.done_outline_sharp),
             )
           ],
         ),
@@ -145,17 +175,12 @@ class _BmiCalculatorState extends State<BmiCalculator> {
   }
 
   void bmiCalculation() {
-    double? wt =
-        double.tryParse(weightController.text) ?? 0;
-    double? ft =
-        double.tryParse(feetController.text) ?? 0;
-    double? inch =
-        double.tryParse(inchController.text) ?? 0;
+    double? wt = double.tryParse(weightController.text) ?? 0;
+    double? ft = double.tryParse(feetController.text) ?? 0;
+    double? inch = double.tryParse(inchController.text) ?? 0;
 
     double? meter = (ft * 12 + inch) * 0.0254;
-    double? meter2 = (ft * 12 + inch) * 703;
     ans = wt / (meter * meter);
-    //lb = wt / (meter2 * meter2);
     setState(() {});
   }
 
@@ -167,8 +192,4 @@ class _BmiCalculatorState extends State<BmiCalculator> {
     inchController.clear();
     weightController.clear();
   }
-
-
-
-
 }
