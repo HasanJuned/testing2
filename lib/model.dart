@@ -1,50 +1,61 @@
-import 'package:intl/intl.dart';
+class FacRegistrationModel {
+  String? status;
+  FacRegData? data;
 
-/// model / pojo class -> helper between application and api
-class WeatherData {
-  final String location;
-  final String temperature; /// 6.7
-  final String weatherDescription;
-  final String weatherImage;
-  final String updatedTime;
-  final String minTemperature;
-  final String maxTemperature;
+  FacRegistrationModel({this.status, this.data});
 
-  WeatherData({
-    required this.location,
-    required this.temperature,
-    required this.weatherDescription,
-    required this.weatherImage,
-    required this.updatedTime,
-    required this.minTemperature,
-    required this.maxTemperature,
-  });
-
-  /// link
-  ///
-  /// get
-
-  /// factory constructor
-  factory WeatherData.fromJson(Map<String, dynamic> json) {
-    final weather = json['weather'][0];
-    final iconCode = weather['icon'];
-    final temperature = (json['main']['temp'] - 273.15).toStringAsFixed(1); /// 278 - 273 = 6.7
-    final minTemperature = (json['main']['temp_min'] - 273.15).toStringAsFixed(1);
-    final maxTemperature = (json['main']['temp_max'] - 273.15).toStringAsFixed(1);
-    final currentTime = DateTime.now(); /// system teke current 9.29 PM
-    final updatedTime = DateFormat('h:mm a').format(currentTime);
-    //final updatedTime = '${currentTime.hour.toString().padLeft(2, '0')}:${currentTime.minute.toString().padLeft(2, '0')}';
-
-    return WeatherData(
-      location: json['name'],
-      temperature: temperature, /// 6.7
-      weatherDescription: weather['main'],
-      minTemperature: minTemperature,
-      maxTemperature: maxTemperature,
-      weatherImage:
-      'https://openweathermap.org/img/w/$iconCode.png',
-      updatedTime: updatedTime,
-    );
+  FacRegistrationModel.fromJson(Map<String, dynamic> json) {
+    status = json['status'];
+    data = json['data'] != null ? FacRegData.fromJson(json['data']) : null;
   }
 
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    if (this.data != null) {
+      data['data'] = this.data!.toJson();
+    }
+    return data;
+  }
+}
+
+class FacRegData {
+  String? email;
+  String? fullName;
+  String? designation;
+  String? department;
+  String? password;
+  String? createdDate;
+  String? sId;
+
+  FacRegData(
+      {this.email,
+        this.fullName,
+        this.designation,
+        this.department,
+        this.password,
+        this.createdDate,
+        this.sId});
+
+  FacRegData.fromJson(Map<String, dynamic> json) {
+    email = json['email'];
+    fullName = json['fullName'];
+    designation = json['designation'];
+    department = json['department'];
+    password = json['password'];
+    createdDate = json['createdDate'];
+    sId = json['_id'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['email'] = email;
+    data['fullName'] = fullName;
+    data['designation'] = designation;
+    data['department'] = department;
+    data['password'] = password;
+    data['createdDate'] = createdDate;
+    data['_id'] = sId;
+    return data;
+  }
 }
