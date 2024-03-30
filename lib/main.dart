@@ -63,7 +63,7 @@ class _BmiCalculatorState extends State<BmiCalculator> {
         ),
       ),
     );
-  }
+  }//
 
   Column inputArea() {
     return Column(
