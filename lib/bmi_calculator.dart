@@ -19,6 +19,7 @@ class _BmiCalculatorState extends State<BmiCalculator> {
   TextEditingController controller5 = TextEditingController();
 
   double? ans;
+  double? lb;
   bool changeMaleGenderColor = false;
   bool changeFemaleGenderColor = false;
 
@@ -126,7 +127,7 @@ class _BmiCalculatorState extends State<BmiCalculator> {
             const SizedBox(
               width: 90,
             ),
-            const Text('lb'),
+            const Text('wt'),
             const SizedBox(
               width: 10,
             ),
@@ -152,7 +153,9 @@ class _BmiCalculatorState extends State<BmiCalculator> {
         double.tryParse(inchController.text) ?? 0;
 
     double? meter = (ft * 12 + inch) * 0.0254;
+    double? meter2 = (ft * 12 + inch) * 703;
     ans = wt / (meter * meter);
+    //lb = wt / (meter2 * meter2);
     setState(() {});
   }
 
