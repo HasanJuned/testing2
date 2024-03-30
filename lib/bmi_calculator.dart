@@ -153,8 +153,6 @@ class _BmiCalculatorState extends State<BmiCalculator> {
 
     double? meter = (ft * 12 + inch) * 0.0254;
     ans = wt / (meter * meter);
-    weightController.clear();
-
     setState(() {});
   }
 
