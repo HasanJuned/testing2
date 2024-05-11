@@ -48,7 +48,7 @@ class MyDashboardScreen extends StatelessWidget {
                           color: Colors.brown,
                           width: 1.5)),
                   onPressed: () {
-                    Get.to(()=> const VideoScreen());
+                    Get.to(()=> VideoScreen());
                   },
                   child: const Text('Enter'),
                 ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:testing2/screens/my_dashboard_screen.dart';
+import 'my_dashboard_screen.dart';
 
 
 class HomeScreen extends StatelessWidget {
