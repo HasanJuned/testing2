@@ -1,9 +1,10 @@
 import 'package:get/get.dart';
 import 'package:testing2/data/model/uploaded_video_model.dart';
 
-import '../../data/model/network_response.dart';
-import '../../data/services/network_caller.dart';
-import '../../data/utils/urls.dart';
+import '../../../data/model/network_response.dart';
+import '../../../data/services/network_caller.dart';
+import '../../../data/utils/urls.dart';
+
 
 class UploadedVideoController extends GetxController {
   bool _inProgress = false;

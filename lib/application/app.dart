@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:testing2/presentation/video_screen.dart';
+import 'package:testing2/presentation/ui/screens/home_screen.dart';
 
-import '../presentation/home_screen.dart';
 import 'binders.dart';
 
 
@@ -14,7 +13,7 @@ class FlutterCourse extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       initialBinding: GetXBindings(),
-      home: const VideoScreen(),
+      home: const HomeScreen(),
     );
   }
 }
