@@ -1,9 +1,10 @@
+
 import 'package:get/get.dart';
-import '../presentation/state_holders/uploaded_video_controller.dart';
+import 'package:testing2/presentation/state_holders/weather_data_controller.dart';
 
 class GetXBindings extends Bindings {
   @override
   void dependencies() {
-    Get.put(UploadedVideoController());
+    Get.lazyPut(() => WeatherDataController());
   }
 }

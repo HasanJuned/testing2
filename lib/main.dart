@@ -4,5 +4,5 @@ import 'package:get/get.dart';
 import 'application/app.dart';
 
 void main() {
-  runApp(const FlutterCourse());
+  runApp(const WeatherApp());
 }

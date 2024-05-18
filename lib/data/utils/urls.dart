@@ -1,5 +1,4 @@
 class Urls {
-  static const String _flutterCourseBaseUrl = 'http://10.0.2.2:2001/flutterCourseByHasan';
-  static const String fetchAllVideo = '$_flutterCourseBaseUrl/fetchVideo';
-  static String playVideo(id) => '$_flutterCourseBaseUrl/fetchVideo/$id';
+  static const String weatherUrl = 'https://api.openweathermap.org/data/2.5/weather?q=Boise&appid=0dadc0ec41869d72cab605ebf70d5c96';
+
 }
