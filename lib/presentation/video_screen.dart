@@ -16,9 +16,6 @@ class VideoScreen extends StatefulWidget {
   State<VideoScreen> createState() => _VideoScreenState();
 }
 
-PlayController playController = PlayController();
-dynamic initializeVideoPlayerFuture;
-bool isPlay = false;
 
 class _VideoScreenState extends State<VideoScreen> {
   String? videoName = '';
@@ -28,9 +25,10 @@ class _VideoScreenState extends State<VideoScreen> {
   void initState() {
     super.initState();
     Get.find<UploadedVideoController>().fetchAllVideo();
-    playController.controller = VideoPlayerController.networkUrl(Uri.parse(
-        'http://10.0.2.2:2001/flutterCourseByHasan/fetchVideo/663f4ddd54c21dabd09fdf77'));
-    initializeVideoPlayerFuture = playController.controller?.initialize();
+
+    Get.find<PlayController>().controller = VideoPlayerController.networkUrl(Uri.parse(
+        'http://10.0.2.2:2001/flutterCourseByHasan/fetchVideo/663f4ddd54c21dabd09fdf78'));
+    Get.find<PlayController>().initializeVideoPlayerFuture = Get.find<PlayController>().controller?.initialize();
   }
 
   @override
@@ -58,46 +56,52 @@ class _VideoScreenState extends State<VideoScreen> {
                 border: Border.all(color: Colors.brown, width: 3),
                 color: Colors.black87,
               ),
-              child: InkWell(
-                  onTap: () {
+              child: GetBuilder<PlayController>(
+                builder: (playController) {
+                  return InkWell(
+                      onTap: () {
 
-                    if (playController.controller!.value.isPlaying) {
-                      playController.play();
-                      setState(() {
+                        if (playController.controller!.value.isPlaying) {
+                          playController.play();
+                          //playController.update2();
+                          // setState(() {
+                          //
+                          // });
 
-                      });
+                        } else {
+                          playController.pause();
+                          //playController.update2();
 
-                    } else {
-                      playController.pause();
-                      setState(() {
+                          // setState(() {
+                          //
+                          // });
 
-                      });
-
-                    }
-                  },
-                  child: playController.isPlay == false
-                      ? FutureBuilder(
-                          future: initializeVideoPlayerFuture,
-                          builder: (context, snapshot) {
-                            if (snapshot.connectionState ==
-                                ConnectionState.done) {
-                              return AspectRatio(
-                                aspectRatio: playController
-                                    .controller!.value.aspectRatio,
-                                child: VideoPlayer(playController.controller!),
-                              );
-                            } else {
-                              return const Center(
-                                child: CircularProgressIndicator(),
-                              );
-                            }
-                          },
-                        )
-                      : const Icon(
-                          Icons.play_arrow_outlined,
-                          size: 100,
-                          color: Colors.white,
-                        )),
+                        }
+                      },
+                      child: playController.isPlay == true
+                          ? FutureBuilder(
+                              future: playController.initializeVideoPlayerFuture,
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.done) {
+                                  return AspectRatio(
+                                    aspectRatio: playController.controller!.value.aspectRatio,
+                                    child: VideoPlayer(playController.controller!),
+                                  );
+                                } else {
+                                  return const Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                }
+                              },
+                            )
+                          : const Icon(
+                              Icons.play_arrow_outlined,
+                              size: 100,
+                              color: Colors.white,
+                            ));
+                }
+              ),
             ),
             // VideoCard(
             //   videNumber: 1,
@@ -156,14 +160,14 @@ class VideoCard extends StatefulWidget {
 
 class _VideoCardState extends State<VideoCard> {
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    playController.controller = VideoPlayerController.networkUrl(Uri.parse(
-        'http://10.0.2.2:2001/flutterCourseByHasan/fetchVideo/663f4ddd54c21dabd09fdf77'));
-    initializeVideoPlayerFuture = playController.controller?.initialize();
-  }
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   Get.find<PlayController>().controller = VideoPlayerController.networkUrl(Uri.parse(
+  //       'http://10.0.2.2:2001/flutterCourseByHasan/fetchVideo/663f4ddd54c21dabd09fdf77'));
+  //   Get.find<PlayController>().initializeVideoPlayerFuture = Get.find<PlayController>().controller?.initialize();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -211,12 +215,13 @@ class _VideoCardState extends State<VideoCard> {
                     widget.videoName =
                         ' V-${index + 1} | ${uploadedVideoController.uploadedVideoModel.data?[index].fileType?.split('\\').last.split('_').elementAt(1).split('.').first}';
                     widget.videoNumber = index + 1;
-                    playController.controller =
+                    Get.find<PlayController>().controller =
                         VideoPlayerController.networkUrl(Uri.parse(
                             Urls.playVideo(uploadedVideoController
                                 .uploadedVideoModel.data?[index].sId)));
-                    initializeVideoPlayerFuture =
-                        playController.controller?.initialize();
+                    Get.find<PlayController>().initializeVideoPlayerFuture =
+                        Get.find<PlayController>().controller?.initialize();
+                    //Get.find<PlayController>().play();
                     setState(() {});
                   },
                   child: ListTile(
