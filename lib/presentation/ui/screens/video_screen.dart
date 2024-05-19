@@ -5,12 +5,12 @@ import 'package:get/get.dart';
 
 import 'package:video_player/video_player.dart';
 
+import '../../../data/utils/urls.dart';
 import '../../widgets/video_box_widget.dart';
 import '../../widgets/video_cart_list_widget.dart';
 import '../state_holders/play_controller.dart';
-import '../state_holders/uploaded_video_controller.dart';
-import 'report_screen.dart';
 
+import 'report_screen.dart';
 
 class VideoScreen extends StatefulWidget {
   const VideoScreen({super.key});
@@ -22,18 +22,6 @@ class VideoScreen extends StatefulWidget {
 class _VideoScreenState extends State<VideoScreen> {
   String? videoName = '';
   int? videoNumber = 1;
-
-  @override
-  void initState() {
-    super.initState();
-    Get.find<UploadedVideoController>().fetchAllVideo();
-
-    Get.find<PlayController>().controller = VideoPlayerController.networkUrl(
-        Uri.parse(
-            'http://10.0.2.2:2001/flutterCourseByHasan/fetchVideo/663f4ddd54c21dabd09fdf78'));
-    Get.find<PlayController>().initializeVideoPlayerFuture =
-        Get.find<PlayController>().controller?.initialize();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,18 +41,10 @@ class _VideoScreenState extends State<VideoScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             VideoBoxWidget(),
-            GetBuilder<UploadedVideoController>(
-                builder: (uploadedVideoController) {
-              if (uploadedVideoController.inProgress) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              return VideoCartListWidget(
-                videoName: '00',
-                videoNumber: 1,
-              );
-            }),
+            VideoCartListWidget(
+              videoName: '00',
+              videoNumber: 1,
+            ),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
@@ -86,12 +66,4 @@ class _VideoScreenState extends State<VideoScreen> {
     );
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    //playController.controller?.dispose();
-  }
 }
-
-
-
