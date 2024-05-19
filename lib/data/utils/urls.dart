@@ -1,5 +1,5 @@
 class Urls {
-   static const String _flutterCourseBaseUrl = 'http://10.0.2.2:2001/flutterCourseByHasan';
+   static const String _flutterCourseBaseUrl = 'https://fluttercoursee.onrender.com';
    static const String login = '$_flutterCourseBaseUrl/login';
    static const String signUp = '$_flutterCourseBaseUrl/signUp';
 
