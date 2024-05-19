@@ -39,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           IconButton(
             onPressed: () {
-              Get.to(() => LoginScreen());
+              AuthController.clearUserInfo();
             },
             icon: const Icon(Icons.logout),
           ),
