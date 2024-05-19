@@ -1,7 +1,6 @@
 import '../utils/urls.dart';
 
 class VideoModel {
-
   List videoModel = [
     Urls.video0,
     Urls.video1,
@@ -15,6 +14,4 @@ class VideoModel {
     Urls.video9,
     Urls.video10,
   ];
-
-
 }

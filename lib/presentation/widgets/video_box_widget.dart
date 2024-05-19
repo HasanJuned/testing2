@@ -28,7 +28,6 @@ class VideoBoxWidget extends StatelessWidget {
               ),
             );
           }
-
           return InkWell(
             onTap: () {
               if (playController.controller!.value.isPlaying) {
@@ -37,8 +36,7 @@ class VideoBoxWidget extends StatelessWidget {
                 playController.play();
               }
             },
-            child: playController.isPlaying
-                ? FutureBuilder(
+            child: playController.isPlaying ? FutureBuilder(
               future: playController.initializeVideoPlayerFuture,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
@@ -52,8 +50,7 @@ class VideoBoxWidget extends StatelessWidget {
                   );
                 }
               },
-            )
-                : const Icon(
+            ) : const Icon(
               Icons.play_arrow_outlined,
               size: 100,
               color: Colors.black,

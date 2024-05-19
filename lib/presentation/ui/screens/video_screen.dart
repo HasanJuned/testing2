@@ -1,15 +1,8 @@
 import 'dart:core';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import 'package:video_player/video_player.dart';
-
-import '../../../data/utils/urls.dart';
 import '../../widgets/video_box_widget.dart';
 import '../../widgets/video_cart_list_widget.dart';
-import '../state_holders/play_controller.dart';
-
 import 'report_screen.dart';
 
 class VideoScreen extends StatefulWidget {
@@ -37,12 +30,12 @@ class _VideoScreenState extends State<VideoScreen> {
       body: Padding(
         padding: const EdgeInsets.all(4.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             VideoBoxWidget(),
             VideoCartListWidget(
-              videoName: '00',
+              videoName: videoName,
               videoNumber: 1,
             ),
             SizedBox(
@@ -53,7 +46,7 @@ class _VideoScreenState extends State<VideoScreen> {
                     textStyle: const TextStyle(
                         fontWeight: FontWeight.w500, fontSize: 16)),
                 onPressed: () {
-                  Get.to(() => ReportScreen());
+                  Get.to(() => const ReportScreen());
                 },
                 child: const Text(
                   'Any Problem? Contact with us',
