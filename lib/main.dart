@@ -28,7 +28,9 @@ class LotteryView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Lottery App'),
+        backgroundColor: Colors.yellow,
+        centerTitle: true,
+        title: const Text('Random Number'),
       ),
       body: Center(
         child: Column(
