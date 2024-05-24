@@ -36,17 +36,17 @@ class LotteryView extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Obx(
-              () => Text(
-                'Your Lottery Number: ${_randomNumberGeneratorController.randomNumber.value}',
-                style: const TextStyle(fontSize: 24),
-              ),
+            GetBuilder<RandomNumberGeneratorController>(
+              builder: (randomNumberGeneratorController) {
+                return Text(
+                  'Your Lottery Number: ${randomNumberGeneratorController.randomNumber}',
+                  style: const TextStyle(fontSize: 24),
+                );
+              }
             ),
             const SizedBox(height: 20),
             ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.yellow
-              ),
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.yellow),
               onPressed: _randomNumberGeneratorController.generateLotteryNumber,
               child: const Text('Generate a number'),
             ),
@@ -55,4 +55,5 @@ class LotteryView extends StatelessWidget {
       ),
     );
   }
+
 }
