@@ -44,8 +44,11 @@ class LotteryView extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.yellow
+              ),
               onPressed: _randomNumberGeneratorController.generateLotteryNumber,
-              child: const Text('Generate Lottery Number'),
+              child: const Text('Generate a number'),
             ),
           ],
         ),
