@@ -1,8 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import 'lottery_controller.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -10,52 +12,40 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+      home: LotteryView(),
     );
   }
 }
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class LotteryView extends StatelessWidget {
+  LotteryView({super.key});
+
+  final RandomNumberGeneratorController _randomNumberGeneratorController = Get.put(RandomNumberGeneratorController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.yellow,
-        title: Text('Home Screen'),
+        title: const Text('Lottery App'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Center(
-          child: ElevatedButton(onPressed: (){
-
-            showDialog(context: context, builder: (context){
-
-              return AlertDialog(
-                title: Text('Warning'),
-                content: Text('Are you sure for confirmation'),
-                actions: [
-                  TextButton(onPressed: (){
-
-                  }, child: Text('No')),
-                  TextButton(onPressed: (){
-
-
-                  }, child: Text('Yes')),
-                ],
-              );
-
-
-            });
-
-
-          }, child: Text('Submit'),)
-
-
-
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Obx(
+              () => Text(
+                'Your Lottery Number: ${_randomNumberGeneratorController.randomNumber.value}',
+                style: const TextStyle(fontSize: 24),
+              ),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: _randomNumberGeneratorController.generateLotteryNumber,
+              child: const Text('Generate Lottery Number'),
+            ),
+          ],
         ),
       ),
     );
