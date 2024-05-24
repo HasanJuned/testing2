@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'lottery_controller.dart';
+import 'random_number_generator_controller.dart';
 
 void main() {
   runApp(const MyApp());
