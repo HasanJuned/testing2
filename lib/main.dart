@@ -39,7 +39,7 @@ class LotteryView extends StatelessWidget {
             GetBuilder<RandomNumberGeneratorController>(
               builder: (randomNumberGeneratorController) {
                 return Text(
-                  'Your Lottery Number: ${randomNumberGeneratorController.randomNumber}',
+                  'Generated Number: ${randomNumberGeneratorController.randomNumber}',
                   style: const TextStyle(fontSize: 24),
                 );
               }
