@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -18,44 +17,24 @@ class MyApp extends StatelessWidget {
 }
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  HomeScreen({super.key});
+
+  TextEditingController nameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.yellow,
         title: Text('Home Screen'),
+        backgroundColor: Colors.yellow,
+        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Center(
-          child: ElevatedButton(onPressed: (){
+        child: Column(
+          children: [
 
-            showDialog(context: context, builder: (context){
-
-              return AlertDialog(
-                title: Text('Warning'),
-                content: Text('Are you sure for confirmation'),
-                actions: [
-                  TextButton(onPressed: (){
-
-                  }, child: Text('No')),
-                  TextButton(onPressed: (){
-
-
-                  }, child: Text('Yes')),
-                ],
-              );
-
-
-            });
-
-
-          }, child: Text('Submit'),)
-
-
-
+          ],
         ),
       ),
     );
