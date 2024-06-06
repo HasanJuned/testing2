@@ -28,7 +28,7 @@ class _MyHomePageState extends State<MyHomePage> {
   List<List<dynamic>> _values = [];
   List<dynamic> j = [];
 
-  dynamic ob = '63';
+  String ob = '63';
 
   @override
   void initState() {
@@ -71,29 +71,13 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text('Flutter Google Sheets'),
       ),
-      // body: _values.isEmpty
-      //     ? Center(child: CircularProgressIndicator())
-      //     : ListView.builder(
-      //   itemCount: _values.length,
-      //   itemBuilder: (context, index) {
-      //     final row = _values[index];
-      //
-      //     if (row.length > 1) {
-      //       return ListTile(
-      //         title: Text('${_values[6][6]}, ${_values[6][9]}'), // Display only time information, excluding the first two columns
-      //       );
-      //     } else {
-      //       return SizedBox.shrink(); // Return an empty widget if the row does not contain time information
-      //     }
-      //   },
-      // ),
 
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Center(
           child: SingleChildScrollView(
             scrollDirection: Axis.vertical,
-            child: Table(
+            child: ob == _values[3][1].toString().substring(0, _values[2][1].toString().length-2) ? Table(
               border: TableBorder.all(), // Optional: Adds borders to the table
               children: [
                 TableRow(
@@ -1185,7 +1169,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                 ),
               ],
-            ),
+            ) : null,
           ),
         ),
       ),
