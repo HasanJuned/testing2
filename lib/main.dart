@@ -28,6 +28,8 @@ class _MyHomePageState extends State<MyHomePage> {
   List<List<dynamic>> _values = [];
   List<dynamic> j = [];
 
+  dynamic ob = '63';
+
   @override
   void initState() {
     super.initState();
@@ -251,7 +253,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       verticalAlignment: TableCellVerticalAlignment.middle,
                       child: Padding(
                         padding: const EdgeInsets.all(3.0),
-                        child: Text('${_values[3][9]}',
+                        child: Text('${_values[3][1].toString().substring(0, _values[2][1].toString().length-2)}',
                             style: const TextStyle(
                                 overflow: TextOverflow.visible,
                                 fontSize: 12,
