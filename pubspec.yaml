@@ -14,6 +14,7 @@ dependencies:
 
   cupertino_icons: ^1.0.2
   get: ^4.6.5
+  http: ^1.2.1
   syncfusion_flutter_gauges: ^25.1.37
   device_preview: ^1.1.0
   flutter_screenutil: ^5.9.0
