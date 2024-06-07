@@ -7,7 +7,6 @@ class MyHomePage2 extends StatefulWidget {
   @override
   _MyHomePage2State createState() => _MyHomePage2State();
 }
-
 class _MyHomePage2State extends State<MyHomePage2> {
   List<List<dynamic>> _filteredValues = [];
 
@@ -17,15 +16,25 @@ class _MyHomePage2State extends State<MyHomePage2> {
     _fetchData();
   }
 
+  dynamic batchSection = '';
   Future<void> _fetchData() async {
-    final _rawData = await rootBundle.loadString('assets/wednesday.csv');
-    List<List<dynamic>> _listData =
-    const CsvToListConverter().convert(_rawData);
+    final List<String> fileNames = ['saturday', 'my_csv', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
 
-    _filteredValues = _listData.where((row) {
-      // Check each cell in the row for the value 'PRP'
-      return row.any((cell) => cell.toString().contains('ASD'));
-    }).toList();
+    for (final fileName in fileNames) {
+      final _rawData = await rootBundle.loadString('assets/$fileName.csv');
+      List<List<dynamic>> _listData = const CsvToListConverter().convert(_rawData);
+
+      final filteredData = _listData.where((row) {
+        // Check if the row contains 'RWA'
+        return row.any((cell) => cell.toString().contains('ASD'));
+      }).toList();
+
+      // Extract batch and section information from each filtered row
+      filteredData.forEach((row) {
+        batchSection = '${row[1]} ${row[2]}';
+        _filteredValues.add(row);
+      });
+    }
   }
 
   @override
@@ -44,7 +53,7 @@ class _MyHomePage2State extends State<MyHomePage2> {
                 return TableRow(
                   children: row.map((cell) {
                     return SubjectClass(
-                      title: cell.toString() == '60' ? cell.toString() : 'not found',
+                      title: cell.toString(),
                       color: Colors.black,
                     );
                   }).toList(),
@@ -57,6 +66,8 @@ class _MyHomePage2State extends State<MyHomePage2> {
     );
   }
 }
+
+
 
 class SubjectClass extends StatelessWidget {
   const SubjectClass({
