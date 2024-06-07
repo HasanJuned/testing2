@@ -27,13 +27,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<List<dynamic>> _values = [];
-  List<List<dynamic>> _values2 = [];
-  List<List<dynamic>> _values3 = [];
-  List<List<dynamic>> _values4 = [];
-  List<List<dynamic>> _values5 = [];
-  List<List<dynamic>> _values6 = [];
-  List<List<dynamic>> _values7 = [];
 
   List<dynamic>? jSat = [];
   List<dynamic>? jSun = [];
@@ -127,13 +120,14 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> _fetchData() async {
+    final _rawData7 = await rootBundle.loadString('assets/saturday.csv');
     final _rawData = await rootBundle.loadString('assets/my_csv.csv');
     final _rawData2 = await rootBundle.loadString('assets/monday.csv');
     final _rawData3 = await rootBundle.loadString('assets/tuesday.csv');
     final _rawData4 = await rootBundle.loadString('assets/wednesday.csv');
     final _rawData5 = await rootBundle.loadString('assets/thursday.csv');
     final _rawData6 = await rootBundle.loadString('assets/friday.csv');
-    final _rawData7 = await rootBundle.loadString('assets/saturday.csv');
+
 
     List<List<dynamic>> _listData =
     const CsvToListConverter().convert(_rawData);
@@ -290,14 +284,6 @@ class _MyHomePageState extends State<MyHomePage> {
     jThu = [one5, two5, three5, four5, five5, six5, seven5, eight5];
     jFri = [one6, two6, three6, four6, five6, six6, seven6, eight6];
     jSat = [one7, two7, three7, four7, five7, six7, seven7, eight7];
-
-    print('kiu ${jSun}');
-    // print('kiu $j2');
-    // print('kiu $j3');
-    // print('kiu $j4');
-    // print('kiu $j5');
-    // print('kiu $j6');
-    // print('kiu $j7');
   }
 
   @override
@@ -309,329 +295,331 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Padding(
         padding: const EdgeInsets.all(4.0),
         child: Center(
-          child: Table(
-            border: TableBorder.all(),
-            children:  [
-              const TableRow(
-                children: [
-                  SubjectClass(
-                    title: 'Time\nDay',
-                    color: Colors.black,
-                  ),
-                  SubjectClass(
-                    title: '8:55\nto\n9:45\nAM',
-                    color: Colors.red,
-                  ),
-                  SubjectClass(
-                    title: '9:50\nto\n10:40\nAM',
-                    color: Colors.red,
-                  ),
-                  SubjectClass(
-                    title: '10:45\nto\n11:35\nAM',
-                    color: Colors.red,
-                  ),
-                  SubjectClass(
-                    title: '11:40\nto\n12:30\nPM',
-                    color: Colors.red,
-                  ),
-                  SubjectClass(
-                    title: '12:35\nto\n1:25\nPM',
-                    color: Colors.red,
-                  ),
-                  SubjectClass(
-                    title: '1:30\nto\n2:10\nPM',
-                    color: Colors.red,
-                  ),
-                  SubjectClass(
-                    title: '2:15\nto\n3.05\nPM',
-                    color: Colors.red,
-                  ),
-                  SubjectClass(
-                    title: '3:10\nto\n4.00\nPM',
-                    color: Colors.red,
-                  ),
-                ],
-              ),
+          child: SingleChildScrollView(
+            child: Table(
+              border: TableBorder.all(),
+              children:  [
+                const TableRow(
+                  children: [
+                    SubjectClass(
+                      title: 'Time\nDay',
+                      color: Colors.black,
+                    ),
+                    SubjectClass(
+                      title: '8:55\nto\n9:45\nAM',
+                      color: Colors.red,
+                    ),
+                    SubjectClass(
+                      title: '9:50\nto\n10:40\nAM',
+                      color: Colors.red,
+                    ),
+                    SubjectClass(
+                      title: '10:45\nto\n11:35\nAM',
+                      color: Colors.red,
+                    ),
+                    SubjectClass(
+                      title: '11:40\nto\n12:30\nPM',
+                      color: Colors.red,
+                    ),
+                    SubjectClass(
+                      title: '12:35\nto\n1:25\nPM',
+                      color: Colors.red,
+                    ),
+                    SubjectClass(
+                      title: '1:30\nto\n2:10\nPM',
+                      color: Colors.red,
+                    ),
+                    SubjectClass(
+                      title: '2:15\nto\n3.05\nPM',
+                      color: Colors.red,
+                    ),
+                    SubjectClass(
+                      title: '3:10\nto\n4.00\nPM',
+                      color: Colors.red,
+                    ),
+                  ],
+                ),
 
-              TableRow(
-                children: [
-                  const SubjectClass(
-                    title: 'SAT',
-                    color: Colors.red,
-                  ),
-                  SubjectClass(
-                    title: '$one7',
-                    color: Colors.black,
-                  ),
-                  SubjectClass(
-                    title: '$two7',
-                    color: Colors.black,
-                  ),
-                  SubjectClass(
-                    title: '$three7',
-                    color: Colors.black,
-                  ),
-                  SubjectClass(
-                    title: '$four7',
-                    color: Colors.black,
-                  ),
-                  SubjectClass(
-                    title: '$five7',
-                    color: Colors.black,
-                  ),
-                  SubjectClass(
-                    title: '$six7',
-                    color: Colors.black,
-                  ),
-                  SubjectClass(
-                    title: '$seven7',
-                    color: Colors.black,
-                  ),
-                  SubjectClass(
-                    title: '$eight7',
-                    color: Colors.black,
-                  ),
-                ],
-              ),
-              TableRow(
-                children: [
-                  const SubjectClass(
-                    title: 'SUN',
-                    color: Colors.red,
-                  ),
-                  SubjectClass(
-                    title: '$one',
-                    color: Colors.black,
-                  ),
-                  SubjectClass(
-                    title: '$two',
-                    color: Colors.black,
-                  ),
-                  SubjectClass(
-                    title: '$three',
-                    color: Colors.black,
-                  ),
-                  SubjectClass(
-                    title: '$four',
-                    color: Colors.black,
-                  ),
-                  SubjectClass(
-                    title: '$five',
-                    color: Colors.black,
-                  ),
-                  SubjectClass(
-                    title: '$six',
-                    color: Colors.black,
-                  ),
-                  SubjectClass(
-                    title: '$seven',
-                    color: Colors.black,
-                  ),
-                  SubjectClass(
-                    title: '$eight',
-                    color: Colors.black,
-                  ),
-                ],
-              ),
-              TableRow(
-                children: [
-                  const SubjectClass(
-                    title: 'MON',
-                    color: Colors.red,
-                  ),
-                  SubjectClass(
-                    title: '$one2',
-                    color: Colors.black,
-                  ),
-                  SubjectClass(
-                    title: '$two2',
-                    color: Colors.black,
-                  ),
-                  SubjectClass(
-                    title: '$three2',
-                    color: Colors.black,
-                  ),
-                  SubjectClass(
-                    title: '$four2',
-                    color: Colors.black,
-                  ),
-                  SubjectClass(
-                    title: '$five2',
-                    color: Colors.black,
-                  ),
-                  SubjectClass(
-                    title: '$six2',
-                    color: Colors.black,
-                  ),
-                  SubjectClass(
-                    title: '$seven2',
-                    color: Colors.black,
-                  ),
-                  SubjectClass(
-                    title: '$eight2',
-                    color: Colors.black,
-                  ),
-                ],
-              ),
-              TableRow(
-                children: [
-                  const SubjectClass(
-                    title: 'TUE',
-                    color: Colors.red,
-                  ),
-                  SubjectClass(
-                    title: '$one3',
-                    color: Colors.black,
-                  ),
-                  SubjectClass(
-                    title: '$two3',
-                    color: Colors.black,
-                  ),
-                  SubjectClass(
-                    title: '$three3',
-                    color: Colors.black,
-                  ),
-                  SubjectClass(
-                    title: '$four3',
-                    color: Colors.black,
-                  ),
-                  SubjectClass(
-                    title: '$five3',
-                    color: Colors.black,
-                  ),
-                  SubjectClass(
-                    title: '$six3',
-                    color: Colors.black,
-                  ),
-                  SubjectClass(
-                    title: '$seven3',
-                    color: Colors.black,
-                  ),
-                  SubjectClass(
-                    title: '$eight3',
-                    color: Colors.black,
-                  ),
-                ],
-              ),TableRow(
-                children: [
-                  const SubjectClass(
-                    title: 'WED',
-                    color: Colors.red,
-                  ),
-                  SubjectClass(
-                    title: '$one4',
-                    color: Colors.black,
-                  ),
-                  SubjectClass(
-                    title: '$two4',
-                    color: Colors.black,
-                  ),
-                  SubjectClass(
-                    title: '$three4',
-                    color: Colors.black,
-                  ),
-                  SubjectClass(
-                    title: '$four4',
-                    color: Colors.black,
-                  ),
-                  SubjectClass(
-                    title: '$five4',
-                    color: Colors.black,
-                  ),
-                  SubjectClass(
-                    title: '$six4',
-                    color: Colors.black,
-                  ),
-                  SubjectClass(
-                    title: '$seven4',
-                    color: Colors.black,
-                  ),
-                  SubjectClass(
-                    title: '$eight4',
-                    color: Colors.black,
-                  ),
-                ],
-              ),TableRow(
-                children: [
-                  const SubjectClass(
-                    title: 'THU',
-                    color: Colors.red,
-                  ),
-                  SubjectClass(
-                    title: '$one5',
-                    color: Colors.black,
-                  ),
-                  SubjectClass(
-                    title: '$two5',
-                    color: Colors.black,
-                  ),
-                  SubjectClass(
-                    title: '$three5',
-                    color: Colors.black,
-                  ),
-                  SubjectClass(
-                    title: '$four5',
-                    color: Colors.black,
-                  ),
-                  SubjectClass(
-                    title: '$five5',
-                    color: Colors.black,
-                  ),
-                  SubjectClass(
-                    title: '$six5',
-                    color: Colors.black,
-                  ),
-                  SubjectClass(
-                    title: '$seven5',
-                    color: Colors.black,
-                  ),
-                  SubjectClass(
-                    title: '$eight5',
-                    color: Colors.black,
-                  ),
-                ],
-              ),TableRow(
-                children: [
-                  const SubjectClass(
-                    title: 'FRI',
-                    color: Colors.red,
-                  ),
-                  SubjectClass(
-                    title: '$one6',
-                    color: Colors.black,
-                  ),
-                  SubjectClass(
-                    title: '$two6',
-                    color: Colors.black,
-                  ),
-                  SubjectClass(
-                    title: '$three6',
-                    color: Colors.black,
-                  ),
-                  SubjectClass(
-                    title: '$four6',
-                    color: Colors.black,
-                  ),
-                  SubjectClass(
-                    title: '$five6',
-                    color: Colors.black,
-                  ),
-                  SubjectClass(
-                    title: '$six6',
-                    color: Colors.black,
-                  ),
-                  SubjectClass(
-                    title: '$seven6',
-                    color: Colors.black,
-                  ),
-                  SubjectClass(
-                    title: '$eight6',
-                    color: Colors.black,
-                  ),
-                ],
-              ),
+                TableRow(
+                  children: [
+                    const SubjectClass(
+                      title: 'SAT',
+                      color: Colors.red,
+                    ),
+                    SubjectClass(
+                      title: '$one7',
+                      color: Colors.black,
+                    ),
+                    SubjectClass(
+                      title: '$two7',
+                      color: Colors.black,
+                    ),
+                    SubjectClass(
+                      title: '$three7',
+                      color: Colors.black,
+                    ),
+                    SubjectClass(
+                      title: '$four7',
+                      color: Colors.black,
+                    ),
+                    SubjectClass(
+                      title: '$five7',
+                      color: Colors.black,
+                    ),
+                    SubjectClass(
+                      title: '$six7',
+                      color: Colors.black,
+                    ),
+                    SubjectClass(
+                      title: '$seven7',
+                      color: Colors.black,
+                    ),
+                    SubjectClass(
+                      title: '$eight7',
+                      color: Colors.black,
+                    ),
+                  ],
+                ),
+                TableRow(
+                  children: [
+                    const SubjectClass(
+                      title: 'SUN',
+                      color: Colors.red,
+                    ),
+                    SubjectClass(
+                      title: '$one',
+                      color: Colors.black,
+                    ),
+                    SubjectClass(
+                      title: '$two',
+                      color: Colors.black,
+                    ),
+                    SubjectClass(
+                      title: '$three',
+                      color: Colors.black,
+                    ),
+                    SubjectClass(
+                      title: '$four',
+                      color: Colors.black,
+                    ),
+                    SubjectClass(
+                      title: '$five',
+                      color: Colors.black,
+                    ),
+                    SubjectClass(
+                      title: '$six',
+                      color: Colors.black,
+                    ),
+                    SubjectClass(
+                      title: '$seven',
+                      color: Colors.black,
+                    ),
+                    SubjectClass(
+                      title: '$eight',
+                      color: Colors.black,
+                    ),
+                  ],
+                ),
+                TableRow(
+                  children: [
+                    const SubjectClass(
+                      title: 'MON',
+                      color: Colors.red,
+                    ),
+                    SubjectClass(
+                      title: '$one2',
+                      color: Colors.black,
+                    ),
+                    SubjectClass(
+                      title: '$two2',
+                      color: Colors.black,
+                    ),
+                    SubjectClass(
+                      title: '$three2',
+                      color: Colors.black,
+                    ),
+                    SubjectClass(
+                      title: '$four2',
+                      color: Colors.black,
+                    ),
+                    SubjectClass(
+                      title: '$five2',
+                      color: Colors.black,
+                    ),
+                    SubjectClass(
+                      title: '$six2',
+                      color: Colors.black,
+                    ),
+                    SubjectClass(
+                      title: '$seven2',
+                      color: Colors.black,
+                    ),
+                    SubjectClass(
+                      title: '$eight2',
+                      color: Colors.black,
+                    ),
+                  ],
+                ),
+                TableRow(
+                  children: [
+                    const SubjectClass(
+                      title: 'TUE',
+                      color: Colors.red,
+                    ),
+                    SubjectClass(
+                      title: '$one3',
+                      color: Colors.black,
+                    ),
+                    SubjectClass(
+                      title: '$two3',
+                      color: Colors.black,
+                    ),
+                    SubjectClass(
+                      title: '$three3',
+                      color: Colors.black,
+                    ),
+                    SubjectClass(
+                      title: '$four3',
+                      color: Colors.black,
+                    ),
+                    SubjectClass(
+                      title: '$five3',
+                      color: Colors.black,
+                    ),
+                    SubjectClass(
+                      title: '$six3',
+                      color: Colors.black,
+                    ),
+                    SubjectClass(
+                      title: '$seven3',
+                      color: Colors.black,
+                    ),
+                    SubjectClass(
+                      title: '$eight3',
+                      color: Colors.black,
+                    ),
+                  ],
+                ),TableRow(
+                  children: [
+                    const SubjectClass(
+                      title: 'WED',
+                      color: Colors.red,
+                    ),
+                    SubjectClass(
+                      title: '$one4',
+                      color: Colors.black,
+                    ),
+                    SubjectClass(
+                      title: '$two4',
+                      color: Colors.black,
+                    ),
+                    SubjectClass(
+                      title: '$three4',
+                      color: Colors.black,
+                    ),
+                    SubjectClass(
+                      title: '$four4',
+                      color: Colors.black,
+                    ),
+                    SubjectClass(
+                      title: '$five4',
+                      color: Colors.black,
+                    ),
+                    SubjectClass(
+                      title: '$six4',
+                      color: Colors.black,
+                    ),
+                    SubjectClass(
+                      title: '$seven4',
+                      color: Colors.black,
+                    ),
+                    SubjectClass(
+                      title: '$eight4',
+                      color: Colors.black,
+                    ),
+                  ],
+                ),TableRow(
+                  children: [
+                    const SubjectClass(
+                      title: 'THU',
+                      color: Colors.red,
+                    ),
+                    SubjectClass(
+                      title: '$one5',
+                      color: Colors.black,
+                    ),
+                    SubjectClass(
+                      title: '$two5',
+                      color: Colors.black,
+                    ),
+                    SubjectClass(
+                      title: '$three5',
+                      color: Colors.black,
+                    ),
+                    SubjectClass(
+                      title: '$four5',
+                      color: Colors.black,
+                    ),
+                    SubjectClass(
+                      title: '$five5',
+                      color: Colors.black,
+                    ),
+                    SubjectClass(
+                      title: '$six5',
+                      color: Colors.black,
+                    ),
+                    SubjectClass(
+                      title: '$seven5',
+                      color: Colors.black,
+                    ),
+                    SubjectClass(
+                      title: '$eight5',
+                      color: Colors.black,
+                    ),
+                  ],
+                ),TableRow(
+                  children: [
+                    const SubjectClass(
+                      title: 'FRI',
+                      color: Colors.red,
+                    ),
+                    SubjectClass(
+                      title: '$one6',
+                      color: Colors.black,
+                    ),
+                    SubjectClass(
+                      title: '$two6',
+                      color: Colors.black,
+                    ),
+                    SubjectClass(
+                      title: '$three6',
+                      color: Colors.black,
+                    ),
+                    SubjectClass(
+                      title: '$four6',
+                      color: Colors.black,
+                    ),
+                    SubjectClass(
+                      title: '$five6',
+                      color: Colors.black,
+                    ),
+                    SubjectClass(
+                      title: '$six6',
+                      color: Colors.black,
+                    ),
+                    SubjectClass(
+                      title: '$seven6',
+                      color: Colors.black,
+                    ),
+                    SubjectClass(
+                      title: '$eight6',
+                      color: Colors.black,
+                    ),
+                  ],
+                ),
 
-            ],
+              ],
+            ),
           ),
         ),
       ),
