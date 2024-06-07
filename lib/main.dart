@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage2(),
+      home: MyHomePage(),
     );
   }
 }
@@ -48,8 +48,8 @@ class _MyHomePageState extends State<MyHomePage> {
   List<List<dynamic>> _filteredValues7 = [];
 
   List<String> days = ['SAT', 'SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI'];
-  String batchToFilter = '58';
-  String sectionToFilter = 'B+C';
+  String batchToFilter = '59';
+  String sectionToFilter = 'B';
 
   String? one;
   String? one2;

@@ -16,7 +16,7 @@ class _MyHomePage2State extends State<MyHomePage2> {
     _fetchData();
   }
 
-  dynamic batchSection = '';
+  List batchSection = [];
   Future<void> _fetchData() async {
     final List<String> fileNames = ['saturday', 'my_csv', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
 
@@ -30,8 +30,8 @@ class _MyHomePage2State extends State<MyHomePage2> {
       }).toList();
 
       // Extract batch and section information from each filtered row
-      filteredData.forEach((row) {
-        batchSection = '${row[1]} ${row[2]}';
+      _listData.forEach((row) {
+        batchSection.add('${row[0]}');
         _filteredValues.add(row);
       });
     }
@@ -53,7 +53,7 @@ class _MyHomePage2State extends State<MyHomePage2> {
                 return TableRow(
                   children: row.map((cell) {
                     return SubjectClass(
-                      title: cell.toString(),
+                      title: cell.toString().contains('ASD') ? batchSection[4] : '',
                       color: Colors.black,
                     );
                   }).toList(),
