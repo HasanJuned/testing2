@@ -1,7 +1,7 @@
 name: testing2
 description: A new Flutter project.
 
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: 'none'
 
 version: 1.0.0+1
 
@@ -13,12 +13,12 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.2
-  get: ^4.6.5
-  http: ^1.2.1
-  syncfusion_flutter_gauges: ^25.1.37
-  device_preview: ^1.1.0
-  csv: ^5.0.1
-  flutter_screenutil: ^5.9.0
+  window_manager: ^0.4.2
+  http: ^0.13.5
+  excel: ^2.0.5
+  path_provider: ^2.0.11
+  shared_preferences: ^2.0.15
+  csv: ^5.0.0
 
 dev_dependencies:
   flutter_test:
@@ -30,12 +30,5 @@ flutter:
 
   uses-material-design: true
 
-  assets:
-    - assets/images/
-    - assets/my_csv.csv
-    - assets/monday.csv
-    - assets/tuesday.csv
-    - assets/wednesday.csv
-    - assets/thursday.csv
-    - assets/friday.csv
-    - assets/saturday.csv
+  #assets:
+    #- assets/images/
