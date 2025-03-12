@@ -8,21 +8,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-
       theme: ThemeData(
-        brightness: Brightness.light,
-        textTheme: TextTheme(
-          bodyLarge: TextStyle(color: Colors.yellow)
-        ),
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.purple,
-            foregroundColor: Colors.white
-          )
-        )
-      ),
-
-
+          brightness: Brightness.light,
+          textTheme: TextTheme(bodyLarge: TextStyle(color: Colors.yellow)),
+          elevatedButtonTheme: ElevatedButtonThemeData(
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.purple,
+                  foregroundColor: Colors.white))),
 
       // theme: ThemeData(
       //   brightness: Brightness.light,
@@ -58,20 +50,40 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(title: Text('HomeScreen 1')),
       body: Column(
         children: [
-
-          Text('Helllo', style: Theme.of(context).textTheme.bodyLarge,),
-          Text('Helllo', style: Theme.of(context).textTheme.bodyLarge,),
-          Text('Helllo', style: Theme.of(context).textTheme.bodyLarge,),
-
-
-          ElevatedButton(onPressed: (){}, child: Text('vgfhjikol'),),
-          ElevatedButton(onPressed: (){}, child: Text('vgfhjikol')),
-          ElevatedButton(onPressed: (){}, child: Text('vgfhjikol')),
-          ElevatedButton(onPressed: (){}, child: Text('vgfhjikol')),
-          ElevatedButton(onPressed: (){}, child: Text('vgfhjikol')),
-          ElevatedButton(onPressed: (){}, child: Text('vgfhjikol')),
-          ElevatedButton(onPressed: (){}, child: Text('vgfhjikol')),
-
+          Text(
+            'Helllo',
+            style: Theme.of(context).textTheme.bodyLarge,
+          ),
+          Text(
+            'Helllo',
+            style: Theme.of(context).textTheme.bodyLarge,
+          ),
+          Text(
+            'Helllo',
+            style: Theme.of(context).textTheme.bodyLarge,
+          ),
+          ElevatedButton(
+            onPressed: () {},
+            child: Text('vgfhjikol'),
+          ),
+          ElevatedButton(onPressed: () {}, child: Text('vgfhjikol')),
+          ElevatedButton(onPressed: () {}, child: Text('vgfhjikol')),
+          ElevatedButton(onPressed: () {}, child: Text('vgfhjikol')),
+          Theme(
+            data: ThemeData(
+              elevatedButtonTheme: ElevatedButtonThemeData(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.green,
+                      foregroundColor: Colors.yellow)),
+            ),
+            child: ElevatedButton(
+              onPressed: () {},
+              child: Text('ei button'),
+            ),
+          ),
+          ElevatedButton(onPressed: () {}, child: Text('vgfhjikol')),
+          ElevatedButton(onPressed: () {}, child: Text('vgfhjikol')),
+          ElevatedButton(onPressed: () {}, child: Text('vgfhjikol')),
         ],
       ),
     );
