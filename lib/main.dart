@@ -1,9 +1,10 @@
-import 'dart:math';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:testing2/game_controller.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -11,72 +12,68 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: RockPaperScissorsGame(),
+      home: HomeScreen(),
     );
   }
 }
 
-class GameController extends GetxController {
-  var choices = ["Rock", "Paper", "Scissors"];
-  var userChoice = "".obs;
-  var computerChoice = "".obs;
-  var result = "".obs;
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
-  void playGame(String choice) {
-    userChoice.value = choice;
-    computerChoice.value = choices[Random().nextInt(3)];
-
-    if (userChoice.value == computerChoice.value) {
-      result.value = "It's a Draw!";
-    } else if (
-    (userChoice.value == "Rock" && computerChoice.value == "Scissors") ||
-        (userChoice.value == "Paper" && computerChoice.value == "Rock") ||
-        (userChoice.value == "Scissors" && computerChoice.value == "Paper")) {
-      result.value = "You Win!";
-    } else {
-      result.value = "You Lose!";
-    }
-  }
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class RockPaperScissorsGame extends StatelessWidget {
-  final GameController controller = Get.put(GameController());
-
-  RockPaperScissorsGame({super.key});
+class _HomeScreenState extends State<HomeScreen> {
+  final GameController _gameController = Get.put(GameController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Rock-Paper-Scissors")),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Obx(() => Text("Your Choice: ${controller.userChoice.value}",
-                style: TextStyle(fontSize: 20))),
-            const SizedBox(height: 10),
-            Obx(() => Text("Computer: ${controller.computerChoice.value}",
-                style: TextStyle(fontSize: 20))),
-            const SizedBox(height: 20),
-            Obx(() => Text(controller.result.value,
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold))),
-            const SizedBox(height: 30),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: controller.choices
-                  .map((choice) => Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ElevatedButton(
-                  onPressed: () => controller.playGame(choice),
-                  child: Text(choice),
-                ),
-              ))
-                  .toList(),
-            ),
-          ],
-        ),
+      appBar: AppBar(
+        title: Text('Game'),
+        centerTitle: true,
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Obx(
+            () {
+              return Text('My Choice: ${_gameController.userChoice.value}');
+            },
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Obx(
+            () {
+              return Text(
+                  'Computer Choice: ${_gameController.computerChoice.value}');
+            },
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Obx(
+            () {
+              return Text('My Choice: ${_gameController.result.value}');
+            },
+          ),
+          SizedBox(
+            height: 30,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: _gameController.choices
+                .map((choice) => ElevatedButton(
+                      onPressed: () => _gameController.playGame(choice),
+                      child: Text(choice),
+                    ))
+                .toList(),
+          ),
+        ],
       ),
     );
   }
