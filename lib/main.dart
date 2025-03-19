@@ -1,79 +1,90 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:testing2/game_controller.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+      title: 'Polling App',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: PollingPage(),
     );
   }
 }
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
-
+class PollingPage extends StatefulWidget {
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  _PollingPageState createState() => _PollingPageState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-  final GameController _gameController = Get.put(GameController());
+class _PollingPageState extends State<PollingPage> {
+  String? selectedOption;
+  Map<String, int> pollResults = {
+    'Option 1': 0,
+    'Option 2': 0,
+    'Option 3': 0,
+    'Option 4': 0,
+  };
+
+  void submitVote() {
+    if (selectedOption != null) {
+      setState(() {
+        pollResults[selectedOption!] = pollResults[selectedOption!]! + 1;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Game'),
-        centerTitle: true,
+        title: Text('Polling App'),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Obx(
-            () {
-              return Text('My Choice: ${_gameController.userChoice.value}');
-            },
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Obx(
-            () {
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Vote for your favorite option:',
+              style: TextStyle(fontSize: 18),
+            ),
+            SizedBox(height: 20),
+            ...pollResults.keys.map((option) {
+              return RadioListTile<String>(
+                title: Text(option),
+                value: option,
+                groupValue: selectedOption,
+                onChanged: (value) {
+                  setState(() {
+                    selectedOption = value;
+                  });
+                },
+              );
+            }).toList(),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: submitVote,
+              child: Text('Submit Vote'),
+            ),
+            SizedBox(height: 40),
+            Text(
+              'Poll Results:',
+              style: TextStyle(fontSize: 18),
+            ),
+            ...pollResults.entries.map((entry) {
               return Text(
-                  'Computer Choice: ${_gameController.computerChoice.value}');
-            },
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Obx(
-            () {
-              return Text('My Choice: ${_gameController.result.value}');
-            },
-          ),
-          SizedBox(
-            height: 30,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: _gameController.choices
-                .map((choice) => ElevatedButton(
-                      onPressed: () => _gameController.playGame(choice),
-                      child: Text(choice),
-                    ))
-                .toList(),
-          ),
-        ],
+                '${entry.key}: ${entry.value} votes',
+                style: TextStyle(fontSize: 16),
+              );
+            }).toList(),
+          ],
+        ),
       ),
     );
   }
