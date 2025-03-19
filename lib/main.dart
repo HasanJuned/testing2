@@ -1,89 +1,80 @@
 import 'package:flutter/material.dart';
 
+
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Polling App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: PollingPage(),
+      home: PollingApp(),
     );
   }
 }
 
-class PollingPage extends StatefulWidget {
+class PollingApp extends StatefulWidget {
+  const PollingApp({super.key});
+
   @override
-  _PollingPageState createState() => _PollingPageState();
+  State<PollingApp> createState() => _PollingAppState();
 }
 
-class _PollingPageState extends State<PollingPage> {
+class _PollingAppState extends State<PollingApp> {
   String? selectedOption;
-  Map<String, int> pollResults = {
-    'Option 1': 0,
-    'Option 2': 0,
-    'Option 3': 0,
-    'Option 4': 0,
+
+
+  Map<String, dynamic> pollOptions = {
+    'Flutter': 0,
+    'Java': 0,
+    'React Native': 0,
   };
 
-  void submitVote() {
-    if (selectedOption != null) {
-      setState(() {
-        pollResults[selectedOption!] = pollResults[selectedOption!]! + 1;
-      });
-    }
+  void voteCalculation() {
+    pollOptions[selectedOption!]++;
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Polling App'),
+        title: const Text('Vote'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Vote for your favorite option:',
-              style: TextStyle(fontSize: 18),
-            ),
-            SizedBox(height: 20),
-            ...pollResults.keys.map((option) {
-              return RadioListTile<String>(
-                title: Text(option),
-                value: option,
-                groupValue: selectedOption,
-                onChanged: (value) {
-                  setState(() {
-                    selectedOption = value;
-                  });
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Text('Vote your favorite option'),
+
+
+              ...pollOptions.keys.map((options) {
+                return RadioListTile(
+                    title: Text(options),
+                    value: options,
+                    groupValue: selectedOption,
+                    onChanged: (value) {
+                      selectedOption = value;
+                      /// voteCalculation();
+                      setState(() {});
+                    });
+              }),
+              ElevatedButton(
+                onPressed: () {
+                  voteCalculation();
                 },
-              );
-            }).toList(),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: submitVote,
-              child: Text('Submit Vote'),
-            ),
-            SizedBox(height: 40),
-            Text(
-              'Poll Results:',
-              style: TextStyle(fontSize: 18),
-            ),
-            ...pollResults.entries.map((entry) {
-              return Text(
-                '${entry.key}: ${entry.value} votes',
-                style: TextStyle(fontSize: 16),
-              );
-            }).toList(),
-          ],
+                child: const Text('Result'),
+              ),
+
+              ...pollOptions.entries.map((value){
+                return Text('${value.key}: ${value.value}' );
+              })
+            ],
+          ),
         ),
       ),
     );
