@@ -21,6 +21,7 @@ dependencies:
   flutter_screenutil: ^5.9.0
   image_picker: any
   scan: ^1.6.0
+  shared_preferences: any
   url_launcher: any
 
 dev_dependencies:
